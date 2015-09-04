@@ -1,0 +1,51 @@
+﻿<div class="">
+    <h3 class="maindiv">
+        {{"Profile_Title" | translate}}
+    </h3>
+    <form class="input-group">
+        <div class="input-row">
+            <label>{{"Profile_Info_Username" | translate}}</label>
+            <input type="text" ng-model="username" disabled="disabled">
+        </div>
+        <div class="input-row">
+            <label>{{"Profile_Info_Email" | translate}}</label>
+            <input type="text" ng-model="email" disabled="disabled">
+        </div>
+    </form>
+
+    <br/>
+    <div class="maindiv">
+        <button class=" btn btn-negative btn-block" ng-click="logout()">{{ "Profile_Button_Logout" | translate}}</button>
+    </div>
+</div>
+
+
+<div class="">
+    <h3 class="maindiv">
+        {{"Settings_ChangePassword" | translate}}
+    </h3>
+    <form name="changePasswordForm" class="input-group">
+        <div class="input-row">
+            <label>{{"Settings_OldPassword" | translate}}</label>
+            <input id="oldPassword" name="oldPassword" placeholder='{{ "Settings_OldPassword_Placeholder" | translate }}' type="{{showPassword ? 'text' : 'password'}}"
+                    ng-model="oldPassword" ng-minlength="8" 
+                   ng-class="{'has-error' : changePasswordForm.oldPassword.$invalid && !changePasswordForm.oldPassword.$pristine}">
+        </div>
+        <div class="input-row">
+            <label>{{"Settings_NewPassword" | translate}}</label>
+            <input id="newPassword" name="newPassword" placeholder='{{ "Settings_NewPassword_Placeholder" | translate }}' type="{{showPassword ? 'text' : 'password'}}"
+                   ng-model="newPassword" ng-minlength="8" 
+                   ng-class="{'has-error' : changePasswordForm.newPassword.$invalid && !changePasswordForm.newPassword.$pristine}">
+            <input type="checkbox" ng-model="showPassword" /> <span ng-click="showPassword=!showPassword"> {{ "Login_ShowPassword" | translate }} </span>
+        </div>
+    </form>
+
+
+    <br/>
+    <div class="maindiv">
+        <button class=" btn btn-primary btn-block" ng-click="changePassword()"
+                ng-disabled="changePasswordForm.$invalid || changePasswordForm.$pristine">
+            {{ "Profile_Button_ChangePassword" | translate}}
+        </button>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+﻿<div class="maindiv">
+
+
+    <div class="">
+        <div class="lentahead">
+            <input class="" type="checkbox" id="check-all" ng-model="allSelected" ng-click="toggleSeleted() || toggleSeleted()"/>
+            <div ng-show="checkedItems.length > 0" ng-click="toggleSeleted()">{{checkedItems.length}}/{{articles.length}}</div>
+            <div>
+                <input type="search" class="searchLenta " placeholder='{{"Lenta_Search" | translate}}' ng-model="feedFilter">
+            </div>
+            <div class="input-group-addon" ng-show="filteredArticles.length !== articles.length">{{filteredArticles.length}}/{{articles.length}}</div>
+        </div>
+    </div>
+
+    <div ng-repeat="item in filteredArticles =( articles | filter: { ArticleTitle: feedFilter}  | orderBy: 'ArticleDate':true)"
+        ng-class="{'unread':item.Readed===false}"
+        class="lentaItem">
+        <div class="small-col ">
+            <div class="cb">
+                <input id="cb{{::item.ArticlePublicId}}" type="checkbox" class="css-checkbox" checklist-model="checkedItems" checklist-value="item" checklist-change="checkListChanged()"/>
+            </div>
+            <div></div>
+        </div>
+        <div class="subject" ng-click="open(item)">
+            {{::item.ArticleTitle}}
+            <span class="date" ng-click="item.Readed ? unread(item): read(item) ">{{::item.ArticleDate | amCalendar}}</span>
+        </div>
+        <div class="small-col ">
+            <div class="st">
+                <span class="icon icon-star-filled" ng-show="item.Starred === true" ng-click="unfave(item)"></span>
+                <span class="icon icon-star" ng-show="item.Starred === false" ng-click="fave(item)"></span>
+            </div>
+            <div></div>
+        </div>
+    </div>
+       
+</div>

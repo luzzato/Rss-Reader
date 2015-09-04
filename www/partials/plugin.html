@@ -1,0 +1,42 @@
+﻿<div class="">
+    <div class="" ng-show="!plugin">
+        <div>
+            <h3></h3>
+        </div>
+        <div>
+           {{ "Plugin_NotFounded" | translate}}
+        </div>
+    </div>
+
+  
+    <br/>
+
+    <div class="">
+        <div class="" ng-show="plugin">
+            <h3>{{plugin.Name}}</h3>
+        </div>
+        <div>
+
+            <ul class="table-view">
+                <li class="table-view-cell pluginInfo">
+                    <div class="">
+                        {{plugin.Description}}
+                        <div ng-show="plugin.Owned">
+                            <br />
+                            {{plugin.PluginResult}}
+                        </div>
+                    </div>
+
+                    <br />
+                    <div class="">
+                        <button ng-click="order(plugin.BuyId)" class="btn btn-positive pull-right" ng-show="!plugin.Owned"><i class="fa fa-dollar "></i> &nbsp; {{ "BuyBtn_Plugin" | translate}}</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <br/>
+
+</div>
+

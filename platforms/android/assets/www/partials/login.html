@@ -1,0 +1,53 @@
+﻿<div class="maindiv">
+    <br />
+    <div class="pull-right">
+        <select class=""
+                ng-model="currentLang" ng-change="switchLang(currentLang)" ng-options="key as value for (key, value) in languages"></select>
+    </div>
+
+    <h3 class="">
+        {{"Login_Title" | translate}}
+    </h3>
+    
+    <br />
+    <br />
+    <form name="loginForm" role="form">
+        <input type="email" id="loginLogin" name="loginLogin"
+               placeholder='{{ "Login_Email_Placeholder" | translate }}' ng-model="username"
+               ng-class="{'has-error' : loginForm.loginLogin.$invalid && !loginForm.loginLogin.$pristine}">
+
+        <input type="{{showPassword ? 'text' : 'password'}}" id="loginPassword" name="loginPassword"
+               placeholder='{{ "Login_Password_Placeholder" | translate }}' ng-model="password"
+               ng-class="{'has-error' : loginForm.loginPassword.$invalid && !loginForm.loginPassword.$pristine}"
+               ng-minlength="8">
+
+        <input type="checkbox" ng-model="showPassword" /> <span ng-click="showPassword=!showPassword"> {{ "Login_ShowPassword" | translate }} </span>
+
+        <br />
+        <br/>
+
+        <button ng-show="!loading" class="btn btn-positive btn-block" ng-click="trylogin()"
+                ng-disabled="loginForm.$invalid">
+            {{ "Login_Button_Submit" | translate}}
+        </button>
+
+        <div ng-show="loading">
+            <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
+            <div class="text-spinner">
+                {{ "Loading" | translate }}
+            </div>
+        </div>
+        <button class="btn btn-positive1 btn-block" ng-click="gotoRegistration()">{{ "Login_Button_Register" | translate}}</button>
+        <p align="center" ng-click="gotoPasswordRecovery()">{{ "Login_Button_PasswordRecovery" | translate}}</p>
+        <!--<button class="btn btn-primary pull-right" ng-click="gotoPasswordRecovery()">{{ "Login_Button_PasswordRecovery" | translate}}</button>-->
+    </form>
+
+    <br />
+   
+</div>

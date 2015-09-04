@@ -1,0 +1,56 @@
+﻿<div class="maindiv">
+    <br />
+    <div class="pull-right">
+        <select class=""
+                ng-model="currentLang" ng-change="switchLang(currentLang)" ng-options="key as value for (key, value) in languages"></select>
+    </div>
+
+    <h3 class="">
+        {{"Register_Title" | translate}}
+    </h3>
+
+    <div>{{"Register_Disclaimer" | translate}}</div>
+    <br />
+    <form name="registerForm">
+        <label for="registerUsername">{{ "Register_Username" | translate}}*</label>
+        <input type="text" name="registerUsername"
+               placeholder='{{ "Register_Username_Placeholder" | translate }}' ng-model="username"
+               ng-class="{'has-error' : registerForm.registerUsername.$invalid && !registerForm.registerUsername.$pristine}">
+
+        <label for="registerLogin">{{ "Register_Email" | translate}}*</label>
+        <input type="email" name="registerLogin" 
+               placeholder='{{ "Register_Email_Placeholder" | translate }}' ng-model="email"
+               ng-class="{'has-error' : registerForm.registerLogin.$invalid && !registerForm.registerLogin.$pristine}">
+
+        <label for="registerPassword">{{ "Register_Password" | translate}}*</label>
+        <input type="{{showPassword ? 'text' : 'password'}}" name="registerPassword"
+               placeholder='{{ "Register_Password_Placeholder" | translate }}' ng-model="password"
+               ng-class="{'has-error' : registerForm.registerPassword.$invalid && !registerForm.registerPassword.$pristine}"
+               ng-minlength="8">
+
+        <br />
+        <input type="checkbox" ng-model="showPassword" /> <span ng-click="showPassword=!showPassword"> {{ "Login_ShowPassword" | translate }} </span>
+        <br />
+        <br />
+        <button ng-show="!loading" class="btn btn-positive btn-block" ng-click="tryRegister()">{{ "Register_Button_Submit" | translate}}</button>
+        <div ng-show="loading">
+            <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
+            <div class="text-spinner">
+                {{ "Loading" | translate }}
+            </div>
+        </div>
+        <br />
+        <button class="btn btn-primary pull-right" ng-click="gotoLogin()">{{ "Register_Button_Login" | translate}}</button>
+    </form>
+
+    <br/>
+    <br/>
+    <br/>
+
+</div>

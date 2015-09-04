@@ -1,0 +1,30 @@
+﻿<div class="">
+  
+    <ul class="table-view">
+        <li class="table-view-cell table-view-cell">
+            <strong>{{"LeftMenu_Settings" | translate}}</strong>
+        </li>
+        <li class="table-view-cell">
+            <a class="navigate-right" href="#/profile">
+                {{"Settings_Profile" | translate}}
+            </a>
+        </li>
+        <li class="table-view-cell">
+            <a class="navigate-right" href="#/configfeeds">
+                {{"Settings_Feed" | translate}}
+            </a>
+        </li>
+        <li class="table-view-cell">
+            <a class="navigate-right" href="#/buy">
+                {{"Settings_Buy" | translate}}
+            </a>
+        </li>
+
+        <li class="table-view-cell"
+            ng-repeat="plugin in plugins">
+            <a class="navigate-right" href="#/plugin/{{plugin.BuyId}}">
+                {{plugin.Name}}
+            </a>
+        </li>
+    </ul>
+</div>

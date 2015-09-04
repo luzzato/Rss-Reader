@@ -1,0 +1,43 @@
+﻿<div class="maindiv">
+    <br />
+    <div class="pull-right">
+        <select class=""
+                ng-model="currentLang" ng-change="switchLang(currentLang)" ng-options="key as value for (key, value) in languages"></select>
+    </div>
+
+    <h3 class="">
+        {{"Recovery_Title" | translate}}
+    </h3>
+
+    <div>{{"Recovery_Disclaimer" | translate}}</div>
+    <br />
+    <form name="recoveryForm">
+        <label for="recoveryLogin">{{ "Register_Email" | translate}}*</label>
+        <input type="email" name="recoveryLogin" 
+               placeholder='{{ "Register_Email_Placeholder" | translate }}' ng-model="email"
+               ng-class="{'has-error' : recoveryForm.recoveryLogin.$invalid && !recoveryForm.recoveryLogin.$pristine}">
+        
+        <br />
+        <button ng-show="!loading" class="btn btn-positive btn-block" ng-click="tryRecovery()">{{ "Recovery_Button_Submit" | translate}}</button>
+
+        <div ng-show="loading">
+            <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
+            <div class="text-spinner">
+                {{ "Loading" | translate }}
+            </div>
+        </div>
+
+        <br />
+        <button class="btn btn-primary pull-left" ng-click="gotoLogin()">{{ "Register_Button_Login" | translate}}</button>
+    </form>
+
+    <br/>
+    <br/>
+   
+</div>

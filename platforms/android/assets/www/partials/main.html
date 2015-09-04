@@ -1,0 +1,12 @@
+﻿<div class="maindiv">
+
+    <div class="box-body">
+        <p>{{"Dashboard_Articles" | translate}} {{status.countAlreadyDownloaded}} / {{status.countMustDownload}} </p>
+        <p>{{"Dashboard_DateLastUpdate" | translate}}  <span am-time-ago="status.syncDate"></span> ({{status.syncDate  | amCalendar}}) </p>
+        <div class="progress progress-striped active">
+            <div style="width: {{status.countAlreadyDownloaded /status.countMustDownload *100}}% " role="progressbar" class="progress-bar progress-bar-green">
+            </div>
+        </div>
+    </div>
+
+</div>

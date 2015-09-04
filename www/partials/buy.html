@@ -1,0 +1,67 @@
+﻿<div class="">
+    <div class="maindiv" ng-show="!isStoreAvailable">
+        <div>
+            <h3>{{ "Buy_Header" | translate}}</h3>
+        </div>
+        <div>
+           {{ "Buy_StoreUnavailable" | translate}}
+            <a href="http://SynRSS.net/">SynRSS.net</a>
+        </div>
+    </div>
+
+  
+    <br/>
+
+    <div class="">
+        <div class="maindiv" ng-show="isStoreAvailable">
+            <h3>{{ "Buy_Header" | translate}}</h3>
+        </div>
+        <div>
+
+            <ul class="table-view">
+                <li class="table-view-cell buyItem"
+                    ng-repeat="iap in Items track by iap.key">
+                    <div class="">
+                        <strong>{{iap.Title}}</strong><br/>
+                        {{iap.Description}}
+                    </div>
+                    <div class="pull-left buyItemPrice">{{iap.Price}}</div>
+                    <div class="pull-right">
+                        <p class="text-green" ng-show="iap.isOwned"><i class="fa fa-check "></i> &nbsp; {{ "Buy_Owned" | translate}}</p>
+                        <button ng-click="order(iap.key)" class="btn btn-positive " ng-show="!iap.isOwned && iap.isAvailable"><i class="fa fa-dollar "></i> &nbsp; {{ "Buy_BuyBtn" | translate}}</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <br/>
+
+    <div class="maindiv" >
+        <div>
+            <h3>{{ "Parameters_Header" | translate}}</h3>
+        </div>
+        <div>
+            <table>
+                <tr>
+                    <td>{{ "Parameters_typestore" | translate}}</td>
+                    <td>{{typestore}}</td>
+                </tr>
+                <tr>
+                    <td>{{ "Parameters_MaxFeeds" | translate}}</td>
+                    <td>{{MaxFeeds}}</td>
+                </tr>
+                <tr>
+                    <td>{{ "Parameters_RefreshFeeds" | translate}}</td>
+                    <td>{{RefreshFeeds}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+
+    <br />
+    <br/>
+
+</div>
+

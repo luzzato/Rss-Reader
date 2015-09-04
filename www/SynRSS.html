@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Mobile</title>
+
+    <!-- Sets initial viewport load and disables zooming  -->
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- Makes your prototype chrome-less once bookmarked to your phone's home screen 
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"> -->
+    <link rel="stylesheet" href="Content/ratchet.css" />
+
+    
+    <link href="css/index.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/angular-snap-only.min.css" />
+    <link rel="stylesheet" href="css/font-awesome.css" />
+</head>
+<body>
+        <snap-drawer>
+
+            <ul class="left-menu" ng-controller="LeftMenuCtrl">
+                <li class="table-view-cell-header">
+                    <a class="" href="#/" snap-close>
+                        <img src="logo.png" style="vertical-align: middle;"/>
+                        <span >SynRSS</span>
+                    </a>
+                </li>
+                <li class="left-menu-cell" ng-repeat="feed in FeedService.getFeeds() | filter:{LentaType:'system'}">
+                    <a class="" href="#/lenta/{{feed.LentaPublicId}}" snap-close>
+                        <span class=" fa fa-exclamation"></span>
+                        <span ng-class="{'text-danger': feed.Unreaded > 0}">SynRSS</span>
+                        <small class="badge pull-right bg-red" ng-show="feed.Unreaded > 0">{{feed.Unreaded}}</small>
+                    </a>
+                </li>
+                <li class="left-menu-cell">
+                    <a class="" href="#/lenta/unread" snap-close>
+                        <span class=" fa fa-rss"></span>
+                        <span>{{ "LeftMenu_Unreaded" | translate}}</span>
+                        <small class="badge pull-right bg-yellow" ng-show="FeedService.getTotalUnreaded() > 0">{{FeedService.getTotalUnreaded()}}</small>
+                    </a>
+                </li>
+                <li class="left-menu-cell">
+                    <a class="" href="#/lenta/fave" snap-close>
+                        <span class=" fa fa-star"></span>
+                        <span>{{ "LeftMenu_Favourites" | translate}}</span>
+                        <small class="badge pull-right bg-yellow" ng-show="FeedService.getTotalFave() > 0">{{FeedService.getTotalFave()}}</small>
+                    </a>
+                </li>
+                <li class="left-menu-cell" ng-repeat="feed in FeedService.getFeeds() | filter:{LentaType:'!system'}  track by feed.LentaPublicId ">
+                    <a class="" href="#/lenta/{{feed.LentaPublicId}}" snap-close>
+                        <span class=" fa fa-folder-open-o"></span>
+                        <span>{{feed.Title}}</span>
+                        <small class="badge pull-right bg-info" ng-show="feed.Unreaded > 0">{{feed.Unreaded}}</small>
+                    </a>
+                </li>
+                <li class="left-menu-cell">
+                    <a class="" href="#/configfeeds/" snap-close>
+                        <span class=" fa fa-plus "></span>
+                        {{ "LeftMenu_AddFeed" | translate}}
+                    </a>
+                </li>
+                <li class="left-menu-cell">
+                    <a class="" href="#/settings" snap-close>
+                        <span class=" fa fa-gears "></span>
+                        {{ "LeftMenu_Settings" | translate}}
+                    </a>
+                </li>
+            </ul>
+
+        </snap-drawer>
+        <snap-content
+            snap-opt-disable="'right'"
+                      >
+            <div class="bar bar-nav bar-bgrd" ng-controller="HeaderCtrl">
+                <header class="bar bar-nav bar-bgrd-def"></header> <!--  no gray bar when blinking ng-show -->
+
+                <header class="bar bar-nav " ng-if="!obj.isArticle && !obj.isLenta">
+                    <span class="icon icon-left-nav pull-left" ng-click="back()" ng-show="obj.canBack"></span>
+                    <!--<span class="icon icon-gear pull-right" ></span>-->
+                    <h1 class="title">SynRSS</h1>
+                </header>
+
+                <header class="bar bar-nav" ng-if="obj.isArticle">
+                    <span class="icon icon-left-nav pull-left" ng-click="back()"></span>
+
+                    <span class="icon fa fa-star pull-right headerAction" ng-show="item.Starred === true" ng-click="unfave(item)"></span>
+                    <span class="icon fa fa-star-o pull-right headerAction" ng-show="item.Starred === false" ng-click="fave(item)"></span>
+
+                    <span class="icon fa fa-circle-o pull-right headerAction" ng-show="item.Readed === true" ng-click="unread(item)"></span>
+                    <span class="icon fa fa-circle pull-right headerAction" ng-show="item.Readed === false" ng-click="read(item)"></span>
+
+                    <h1 class="title">{{item.ArticleTitle | limitTo:20 }}{{item.ArticleTitle.length > 20 ? '...' : ''}}</h1>
+                </header>
+
+                <header class="bar bar-nav" ng-if="obj.isLenta">
+                    <span class="icon icon-left-nav pull-left" ng-click="back()"></span>
+                    <span class="icon icon-more-vertical pull-right headerAction" action-sheet-lenta selecteditems="sharedProperties.getLentaChecked()" ng-show="sharedProperties.getLentaChecked().length > 0"></span>
+                    <h1 class="title" ng-show="obj.title">{{obj.title | limitTo:20 }}{{obj.title.length > 20 ? '...' : ''}}</h1>
+                </header>
+            </div>
+            <div class="content" snap-dragger>
+            <div ng-view></div>
+        </div>
+        </snap-content>
+
+    <!-- Cordova reference, this is added to your app when it's built. -->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <script src="scripts/myApp/snap.min.js"></script>
+    <script src="scripts/angular.js"></script>
+    <script src="scripts/angular-route.js"></script>
+    <script src="scripts/myApp/angular-snap.min.js"></script>
+    <script src="scripts/myApp/angular-translate.min.js"></script>
+    <script src="scripts/myApp/angular-translate-loader-static-files.min.js"></script>
+    <script src="scripts/myApp/moment-with-locales.min.js"></script>
+    <!--<script src="scripts/myApp/moment-timezone-with-data-2010-2020.min.js"></script>-->
+    <script src="scripts/myApp/angular-moment.js"></script>
+    <script src="scripts/myApp/checklist-model.js"></script>
+    <script src="scripts/myApp/jszip.js"></script>
+
+    <script src="scripts/myApp/localforage.min.js"></script>
+    <script src="scripts/myApp/angular-localForage.js"></script>
+    <!--<script src="SQLitePlugin.js"></script>-->
+    <script src="scripts/myApp/localforage-cordovasqlitedriver.js"></script>
+
+    <script src="scripts/index.js"></script>
+    
+    <script src="scripts/myApp/app.js"></script>
+    <script src="scripts/myApp/controllers.js"></script>
+    <script src="scripts/myApp/directives.js"></script>
+    <script src="scripts/myApp/filters.js"></script>
+    <script src="scripts/myApp/services.js"></script>
+    <script src="scripts/myApp/IapService.js"></script>
+
+
+    <script src="scripts/myApp/onlydevice.js"></script>
+
+</body>
+</html>
